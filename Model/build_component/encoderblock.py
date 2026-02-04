@@ -1,0 +1,25 @@
+import torch.nn as nn
+from Model.build_component.optimizerMultiheadAttention import OptimizedFlashMHA
+from Model.build_component.feedForwardNetword import FeedForwardNetwork_standard
+
+# input: [batch_size, seq_len, d_model] -> output: [batch_size, seq_len, d_model]
+class EncoderBlock(nn.Module):
+    def __init__(self, embed_dim, num_heads, ffn_hidden_dim, dropout, bias):
+        super().__init__()
+        self.mha = OptimizedFlashMHA(embed_dim=embed_dim, num_heads=num_heads, bias=bias, dropout_p=dropout)
+        self.ffn = FeedForwardNetwork_standard(d_model=embed_dim, d_ff=ffn_hidden_dim, activation='gelu', dropout=dropout, bias=bias)
+        self.norm1 = nn.RMSNorm(embed_dim, eps=1e-6)
+        self.norm2 = nn.RMSNorm(embed_dim, eps=1e-6)
+        self.dropout = nn.Dropout(dropout)
+        
+    def forward(self, x, key_padding_mask, is_causal=False):
+        residual = x
+        x = self.norm1(x)
+        mha_out, kv_cache = self.mha(x, x, x, key_padding_mask=key_padding_mask, is_causal=is_causal)
+        x = residual + self.dropout(mha_out)
+        
+        residual = x 
+        x = self.norm2(x)
+        ffn_out = self.ffn(x)
+        x = residual + self.dropout(ffn_out)
+        return x

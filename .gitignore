@@ -1,0 +1,17 @@
+__pycache__/
+runs/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.vscode/
+summary/
+source/tokenizer/tokenization.txt
+*.tsv
+*.bin
+*.pt
+*.mp4
+*.doc
+*.docx
+*.jsonl
+*.txt
