@@ -24,10 +24,10 @@ class BeamSearchOptim(nn.Module):
         
         encoder_output = encoder_output.unsqueeze(1).expand(-1, self.B, -1, -1).contiguous()
         # [batch_size, beam_width, seq_len_src, embed_dim]
+        encoder_output = encoder_output.reshape(batch_size * self.B, -1, encoder_output.shape[-1])
+        
         model.src_kpmask_inference = model.src_kpmask_inference.unsqueeze(1).expand(-1, self.B, -1).contiguous()
         model.src_kpmask_inference = model.src_kpmask_inference.reshape(batch_size * self.B, -1)
-        
-        encoder_output = encoder_output.reshape(batch_size * self.B, -1, encoder_output.shape[-1])
         # [batch_size * beam_width, seq_len_src, embed_dim]
         
         # Xử lý source_mask nếu không None
@@ -148,9 +148,10 @@ class BeamSearchOptim(nn.Module):
         return beam_seqs[global_best_indices], final_scores[torch.arange(batch_size, device=self.device), best_indices]
         
 if __name__=="__main__":
-    use_cache = True
+    use_cache = False
     audio_mel_spectrogram = torch.randn(16, 80, 2000).to("cuda")
     source_mask = torch.randn(16, 2000).to("cuda")
+    
     model = ASR2026().to('cuda')
     model.eval()
     import time

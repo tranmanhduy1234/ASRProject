@@ -28,6 +28,7 @@ class ASRDataloader:
         
         print("Start pre-tokenizing dataset...")
         num_proc = os.cpu_count() if os.cpu_count() else 1
+        num_proc = 1
         self.dataset = self.dataset.map(
             self.preprocess_function,
             batched=True,
@@ -121,6 +122,11 @@ class ASRDataloader:
         for original_files in batch_original_files:
             mel_spectrogram_db =  element_metadata_2_tensor_input_model(original_files, self.audio_address_database, self.mel_transform, self.amplitute_to_db)
             mel_flat = mel_spectrogram_db.transpose(1, 2).squeeze(0)
+            
+            mu = mel_flat.mean()
+            sigma = mel_flat.std()
+            mel_flat = (mel_flat - mu) / (sigma + 1e-5)
+            
             mel_spectrogram_dbs.append(mel_flat)
             mel_lengths.append(mel_flat.size(0))
             
@@ -157,57 +163,19 @@ if __name__=="__main__":
         hop_length=config.HOP_LEN,
         n_mels=config.CHANNEL_LOG_MEL
     )
+    
     data = ASRDataloader(
         path_metadata=r"D:\chuyen_nganh\ASRProject\Data\combined_metadata_debug.jsonl",
         tokenizer=Tokenizer2025(config.MODEL_SPM_PATH),
         mel_transform=mel_transform,
         amplitute_to_db=amplitute_to_db,
-        file_path_input_audio_address=config.ADDRESS_AUDIO
+        audio_address_database=load_database(config.ADDRESS_AUDIO)
     )
     data.print_config_dataloader()
-    datatrain = data.getDataloader(batch_size=4)
+    datatrain = data.getDataloader(batch_size=2)
     for i, batch in enumerate(datatrain):
-        print(batch["mel_mask"].shape)
-        print(batch["transcripts_target_preshift"].shape)
-        print(batch["transcripts_target_shifted"].shape)
-        print(batch["transcripts_mask"].shape)
-        print(batch["mel_spectrogram_dbs"].shape)
-
+        print(batch['mel_spectrogram_dbs'][0].max())
+        print(batch['mel_spectrogram_dbs'][0].min())
+        print(batch['mel_spectrogram_dbs'][0].mean())
         exit(0)
-        transcripts=batch["transcripts"]
-        transcripts_target_preshift=batch["transcripts_target_preshift"]
-        transcripts_target_shifted=batch["transcripts_target_shifted"]
-        transcripts_mask=batch["transcripts_mask"]
-        mel_spectrogram_dbs=batch["mel_spectrogram_dbs"]
-        mel_mask=batch["mel_mask"]
-        mel_mask_downsampled = mel_mask[:, ::4]
-        
-        assert mel_spectrogram_dbs.shape[:2] == mel_mask.shape, \
-            f"Lỗi: Mel {mel_spectrogram_dbs.shape} không khớp với Mask {mel_mask.shape}"
-            
-        T_expected = (mel_spectrogram_dbs.size(1) + 3) // 4
-
-        max_val = mel_spectrogram_dbs.max().item()
-        min_val = mel_spectrogram_dbs.min().item()
-        mean_val = mel_spectrogram_dbs.mean().item()
-        
-        if torch.isnan(mel_spectrogram_dbs).any() or torch.isinf(mel_spectrogram_dbs).any():
-            print(f"!!! CẢNH BÁO: Batch {i} chứa giá trị NaN hoặc Inf")
-
-        invalid_tokens = (transcripts_target_shifted < -100).any()
-        if invalid_tokens:
-            print(f"!!! CẢNH BÁO: Batch {i} chứa ID transcript không hợp lệ")
-
-        if i == 0:
-            print(f"--- Kiểm tra Batch {i} ---")
-            print(f"Mel - Max: {max_val:.2f}, Min: {min_val:.2f}, Mean: {mean_val:.2f}")
-            print(f"Mel Shape: {mel_spectrogram_dbs.shape}")
-            print(f"Transcript Length Max: {transcripts_target_preshift.size(1)}")
-            
-            last_true_idx = torch.where(mel_mask[0])[0][-1].item()
-            print(f"Mẫu 0: Audio kết thúc tại index {last_true_idx}, giá trị tại đó: {mel_spectrogram_dbs[0, last_true_idx, 0].item():.2f}")
-            
-            if last_true_idx < mel_spectrogram_dbs.size(1) - 1:
-                pad_sample = mel_spectrogram_dbs[0, -1, 0].item()
-                print(f"Mẫu 0: Giá trị tại vùng Padding: {pad_sample:.2f}")
     print("Hoàn tất")

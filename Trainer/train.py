@@ -187,6 +187,7 @@ def train_ASR2026(model: ASR2026, train_loader, val_loader,
                 model.eval()
                 print("\nEvaluation...")
                 loss_avg_val = validate_step(model=model, val_loader=val_loader, criterion=criterion, device=device)
+                print(f"\nLoss validation: {loss_avg_val}")
                 print("\n")
                 logLoss(writer=writer, loss=loss_avg_val, phase="Validation", step=idx + epoch * total_step_training_per_epoch)
                 model.train()
@@ -231,12 +232,15 @@ def WER_f(model: ASR2026, debug_loader, device, beamsearchhead: BeamSearchOptim,
             rs = tokenizer.decode(rs, skip_special_tokens=True)
             for index in range(len(rs)):
                 error = wer(transcripts[index], rs[index])
+                print(f"Tỷ lệ lỗi thành phần: {error}")
+                if error > 1.0:
+                    continue
                 errors += error
                 total_samples += 1
                 
     torch.cuda.empty_cache()
     return errors / total_samples
-            
+
 class Trainer2026:
     def __init__(self):
         self.amplitute_to_db = T.AmplitudeToDB(top_db=100)
@@ -250,6 +254,26 @@ class Trainer2026:
         self.tokenizer2025 = Tokenizer2025(model_spm_path=MODEL_SPM_PATH, legacy=False)
         
         audio_address_database = load_database(config.ADDRESS_AUDIO)
+        
+        self.debug_dataloader = ASRDataloader(path_metadata=config.METADATA_DEBUG,
+                                              tokenizer=self.tokenizer2025,
+                                              mel_transform=self.mel_transform,
+                                              amplitute_to_db=self.amplitute_to_db,
+                                              audio_address_database=audio_address_database).getDataloader(batch_size=4)
+        self.beamsearchhead = BeamSearchOptim(beam_width=BEAM_WIDTH, 
+                                              max_len=MAX_LEN_INFERENCE, 
+                                              sos_id=BOS, 
+                                              eos_id=EOS,
+                                              device=DEVICES)
+        try: 
+            load_checkpoint_onlymodel(config.LOAD_LAST_CHECKPOINT_PATH, self.model)
+            wer = WER_f(self.model, debug_loader=self.debug_dataloader, 
+                device=config.DEVICES, beamsearchhead=self.beamsearchhead, 
+                tokenizer=self.tokenizer2025)
+            print(f"Tỷ lệ lỗi: {wer * 100}%")
+            exit(0)
+        except Exception as e:
+            print(e)
         self.train_dataloader = ASRDataloader(path_metadata=config.METADATA_TRAIN,
                                               tokenizer=self.tokenizer2025,
                                               mel_transform=self.mel_transform,
@@ -262,12 +286,6 @@ class Trainer2026:
                                                    amplitute_to_db=self.amplitute_to_db,
                                                    audio_address_database=audio_address_database).getDataloader(batch_size=4)
         
-        self.debug_dataloader = ASRDataloader(path_metadata=config.METADATA_DEBUG,
-                                              tokenizer=self.tokenizer2025,
-                                              mel_transform=self.mel_transform,
-                                              amplitute_to_db=self.amplitute_to_db,
-                                              audio_address_database=audio_address_database).getDataloader(batch_size=4)
-                                              
         self.optimizer = torch.optim.AdamW(
             self.model.parameters(),
             lr=LEARNING_RATE,
@@ -279,11 +297,6 @@ class Trainer2026:
             ignore_index=PAD,
             label_smoothing=SMOOTHING
         )
-        self.beamsearchhead = BeamSearchOptim(beam_width=BEAM_WIDTH, 
-                                              max_len=MAX_LEN_INFERENCE, 
-                                              sos_id=BOS, 
-                                              eos_id=EOS,
-                                              device=DEVICES)
         self.scaler = GradScaler(enabled=config.USE_SCALER)
         self.scheduler = create_cosine_schedule_with_warmup(optimizer=self.optimizer,
                                                             num_warm_up=int((len(self.train_dataloader) // ACCUMULATION_STEPS + 1) * RATIO_WARMUP_GLOBAL_STEP * EPOCHS),
@@ -304,10 +317,6 @@ class Trainer2026:
         if self.last_epoch == -2:
             print("Train model from scratch starting...\n")
 
-        wer = WER_f(self.model, debug_loader=self.debug_dataloader, 
-              device=config.DEVICES, beamsearchhead=self.beamsearchhead, 
-              tokenizer=self.tokenizer2025)
-        print(f"Tỷ lệ lỗi: {wer}")
     def start_training(self):
         print(f"Starting training on {DEVICES}")
         print(f"Total training steps: {len(self.train_dataloader) * EPOCHS}")

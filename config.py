@@ -8,21 +8,21 @@ PAD=3
 
 # Tham số dataloader
 PIN_MEMORY = True
-NUM_WORKERS = 1
-BATCH_SIZE = 32
+NUM_WORKERS = 4
+BATCH_SIZE = 16
 SHUFFLE = True
 DROP_LAST = False
 PERSISTENT_WORKERS = True
-PREFETCH_FATOR = 1
+PREFETCH_FATOR = 4
 
 # Tham số training
 USE_SCALER=True
 USE_AMP=True
 EPOCHS = 3
 MODEL_SPM_PATH = r"D:\chuyen_nganh\ASRProject\Tokenizer\unigram_10000.model"
-LOAD_LAST_CHECKPOINT_PATH = r""
-SAVE_STEP = 10
-LOGGING_STEP = 10
+LOAD_LAST_CHECKPOINT_PATH = r"D:\chuyen_nganh\ASRProject\Save_checkpoint\checkpoint_39999_epoch_8.pt"
+SAVE_STEP = 20000
+LOGGING_STEP = 2000
 DEVICES = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 LEARNING_RATE = 1e-3
 RATIO_DECAY_LEARNING_RATE = 0.2
@@ -32,7 +32,7 @@ MAX_GRAD_NORM = 1.0
 SEED = 28
 WEIGHT_DECAY = 0.01
 BETAS = (0.9, 0.98)
-EPS = 1e-9
+EPS = 1e-6
 SAVE_LAST_CHECKPOINT_PATH = r"D:\chuyen_nganh\ASRProject\Save_checkpoint\checkpoint_last.pt"
 ROOT_FOLDER_SAVE_CHECKPOINT= r"D:\chuyen_nganh\ASRProject\Save_checkpoint"
 ACCUMULATION_STEPS = 8 # batch_size * accumulation = batch size efficient
@@ -52,5 +52,5 @@ SAMPLE_RATE=16000
 CHANNEL_LOG_MEL=80
 N_FFT=400 # (~ 250 milisecond)
 HOP_LEN=160 # (~ 10 milisecond)
-PADDING_MELSPECTROGRAM=-100.0
+PADDING_MELSPECTROGRAM=-1.0
 # ========================================================================================

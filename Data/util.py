@@ -91,4 +91,6 @@ if __name__=="__main__":
             )        
             input_model = element_metadata_2_tensor_input_model(data, audio_database, mel_transform, amplitute_to_db)
             print(input_model.shape)
+            print(input_model.input_features.mean()) # Nên gần bằng 0
+            print(input_model.input_features.std())  # Nên gần bằng 1
             break
