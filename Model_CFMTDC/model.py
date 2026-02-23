@@ -9,7 +9,6 @@ import torch.nn.functional as F
 import math
 from typing import Tuple, Optional
 
-
 # ============================================================================
 # 1. AUDIO ENCODER EMBEDDING
 # ============================================================================
@@ -324,7 +323,6 @@ class Joiner(nn.Module):
         logits = self.linear2(joint)  # [B, T, U, vocab_size]
         return logits
 
-
 # ============================================================================
 # 8. CONFORMER-TRANSDUCER (MAIN MODEL)
 # ============================================================================
@@ -415,7 +413,6 @@ class ConformerTransducer(nn.Module):
     def join(self, ft, gu):
         """Join encoder and predictor (for inference)"""
         return self.joiner(ft, gu)
-
 
 # ============================================================================
 # EXAMPLE USAGE

@@ -14,14 +14,32 @@ class Predictor(nn.Module):
         self.dropout = nn.Dropout(dropout)
     
     def forward(self, y, hidden=None):
-        """_summary_
-        Args:
-            y (torch tensor): [Batchsize, seqlen]
-            hidden (tuple(h, c)): from previous step
-        Returns:
-            gu: [B, U, hidden_dim]
-            (h, c) new hidden state
-        """
-        y_embedd = self.embedding_layer(y)
-        lstm_out
-        return 
+            """_summary_
+            Args:
+                y (torch tensor): [Batchsize, seqlen] (Dữ liệu đầu vào đã token hóa)
+                hidden (tuple(h, c)): Trạng thái ẩn từ bước trước đó (tùy chọn)
+            Returns:
+                gu: [Batchsize, seqlen, hidden_dim] (Output của Predictor)
+                (h, c): Trạng thái ẩn mới
+            """
+            # 1. Chuyển đổi tokens thành embeddings
+            # y_embedd shape: [Batchsize, seqlen, embedding_dim]
+            y_embedd = self.embedding_layer(y)
+
+            # 2. Đưa qua lớp LSTM
+            # lstm_out shape: [Batchsize, seqlen, hidden_dim]
+            # hidden shape: (h_n, c_n) mỗi cái là [num_layer, Batchsize, hidden_dim]
+            lstm_out, (h, c) = self.lstm(y_embedd, hidden)
+        
+            # 3. Đưa qua lớp Linear và Dropout để tinh chỉnh feature
+            # gu shape: [Batchsize, seqlen, hidden_dim]
+            gu = self.linear(lstm_out)
+            gu = self.dropout(gu)
+
+            return gu, (h, c)
+        
+if __name__=="__main__":
+    predictor = Predictor(vocab_size=10000, embedding_dim=768, hidden_dim=512, num_layer=5, dropout=0.1, maxLen=1024)
+    inputs = torch.randint(0, 10000, (2, 256))
+    outputs = predictor(inputs)
+    print(outputs[0].shape)
