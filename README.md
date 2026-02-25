@@ -283,3 +283,8 @@ python Inference/run.py
 | SAMPLE_RATE | 16000 |
 | N_FFT / HOP_LEN | 400 / 160 |
 | N_MELS | 80 |
+
+## Kết quả
+WER: 13.75%  
+Demo:
+Inference\ASR.mp4

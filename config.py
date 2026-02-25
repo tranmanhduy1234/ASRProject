@@ -20,7 +20,7 @@ USE_SCALER=True
 USE_AMP=True
 EPOCHS = 3
 MODEL_SPM_PATH = r"D:\chuyen_nganh\ASRProject\Tokenizer\unigram_10000.model"
-LOAD_LAST_CHECKPOINT_PATH = r"D:\chuyen_nganh\ASRProject\Save_checkpoint\checkpoint_39999_epoch_8.pt"
+LOAD_LAST_CHECKPOINT_PATH = r"D:\chuyen_nganh\ASRProject\Save_checkpoint\checkpoint_40099_epoch_3.pt"
 SAVE_STEP = 20000
 LOGGING_STEP = 2000
 DEVICES = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -52,5 +52,5 @@ SAMPLE_RATE=16000
 CHANNEL_LOG_MEL=80
 N_FFT=400 # (~ 250 milisecond)
 HOP_LEN=160 # (~ 10 milisecond)
-PADDING_MELSPECTROGRAM=-1.0
+PADDING_MELSPECTROGRAM=0
 # ========================================================================================
