@@ -3,6 +3,12 @@
 Hệ thống **nhận dạng giọng nói tự động** cho tiếng Việt, dựa trên kiến trúc encoder-decoder Transformer và Conformer-Transducer, chuyển đổi âm thanh thành văn bản.
 
 ---
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=WgZn9pF-Teg">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRI1fi2beQWOszv-RectoPDISyaZVX2V6VcWg&s" alt="Watch the video" width="600">
+  </a>
+</p>
+---
 
 ## Mục lục
 
