@@ -125,17 +125,17 @@ class ASR2026(nn.Module):
 
 if __name__=="__main__":
     model = ASR2026().to("cuda")
-    input_audio = torch.randn(8, 1571, 80).to("cuda").transpose(1, 2).contiguous()
-    mel_mask = torch.ones((8, 1571), dtype=torch.bool).to("cuda")
-    tgt_transcript = torch.randint(0, 10000, (8, 256)).to("cuda")
-    tgt_mask = torch.ones((8, 256), dtype=torch.bool).to("cuda")
+    input_audio = torch.randn(1, 1571, 80).to("cuda").transpose(1, 2).contiguous()
+    mel_mask = torch.ones((1, 1571), dtype=torch.bool).to("cuda")
+    tgt_transcript = torch.randint(0, 10000, (1, 256)).to("cuda")
+    tgt_mask = torch.ones((1, 256), dtype=torch.bool).to("cuda")
     
     print(model(input_audio, tgt_transcript, mel_mask, tgt_mask).shape)
     output_encoder = model.inference_encoder(input_audio, mel_mask)
     tgt_embedding = model.inference_embedding_layer(tgt_transcript).to("cuda")
     output_decoder = model.inference_decoder(tgt_embedding=tgt_embedding, encoder_output=output_encoder, src_mask=None, tgt_mask=tgt_mask)
     
-    print(model.src_kpmask_inference.shape, "sss")
+    print(model.src_kpmask_inference.shape)
     print(output_encoder.shape)
     print(output_decoder.shape)
     print(model.count_parameters())

@@ -18,7 +18,7 @@ if __name__=="__main__":
         n_mels=config.CHANNEL_LOG_MEL
     )
     
-    audio_tensor = load_and_combine_to_tensor_sf(paths=[r"D:\chuyen_nganh\ASRProject\Inference\demo_TTS.wav"])
+    audio_tensor = load_and_combine_to_tensor_sf(paths=[r"/home/tranmanhduy/Workspace/chuyen_nganh/ASRProject/Inference/demo_natural.wav"])
     mel_spec = mel_transform(audio_tensor)
     audio_mel_spectrogram = amplitute_to_db(mel_spec).to("cuda")
     
@@ -34,7 +34,7 @@ if __name__=="__main__":
     
     model = ASR2026().to("cuda")
     model.eval()
-    load_checkpoint_onlymodel(r"D:\chuyen_nganh\ASRProject\Save_checkpoint\checkpoint_40099_epoch_3.pt", model=model)
+    load_checkpoint_onlymodel(r"/home/tranmanhduy/Workspace/chuyen_nganh/ASRProject/Save_checkpoint/checkpoint_40099_epoch_3.pt", model=model)
     print(audio_mel_spectrogram.shape)
     
     import time
@@ -46,5 +46,5 @@ if __name__=="__main__":
     print(f"Tổng thời gian inference: {(time.time() - start):.2f} giây")
     print()
     rs = rs.tolist()
-    tokenizer2025 = Tokenizer2025(model_spm_path=r"D:\chuyen_nganh\ASRProject\Tokenizer\unigram_10000.model", legacy=False)
-    print(tokenizer2025.decode(rs, skip_special_tokens=True))
+    tokenizer2025 = Tokenizer2025(model_spm_path=r"/home/tranmanhduy/Workspace/chuyen_nganh/ASRProject/Tokenizer/unigram_10000.model", legacy=False)
+    print(tokenizer2025.decode(rs, skip_special_tokens=True))    

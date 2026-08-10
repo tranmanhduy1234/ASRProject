@@ -14,3 +14,5 @@ source/tokenizer/tokenization.txt
 *.docx
 *.jsonl
 *.txt
+
+demo.wav

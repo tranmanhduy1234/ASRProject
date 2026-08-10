@@ -1,0 +1,136 @@
+{
+  "audio": "/home/tranmanhduy/Workspace/chuyen_nganh/ASRProject/Inference/demo.wav",
+  "transcript": "em muốn làm người yêu của anh em không muốn làm mẹ của anh chuyện là em vừa mới chia tay người yêu và người đó từng là điểm tựa là người để em phấn đấu bây giờ cô ấy đột ngột bỏ em mà đi em cảm thấy mất phương hướng và lạc lỏng anh có cách nào để em tìm lại sự bình an tìm lại chính em tiếng nói trong con người em không anh anh có thể em là người trong cuộc em đang yêu cho nên em không nhìn thấy rõ đó như em nghe cái ý này nè người đó từng là điểm tưởng là người là người là em sống đó thì đó chính là lý do tại sao người ta bỏ em mà đi đâu cô tại vì em bước một mối quan hệ này không phải để chia sẻ để hiểu và đồng hành của cô ấy em bước một mối quan hệ này để tìm điểm tựa mà để dựa dẫm cô ấy mà xin lỗi em nhưng anh không biết là em bao nhiêu tuổi chứ còn thật ra là trên hai chục tuổi thì ngay cả ba má mình thì mình cũng không nên dịu dẫm nữa các bạn à chứ đừng nói chi là bạn gái của mình cho nên có khi cô ấy đang nói là em rất tiếc em muốn làm người yêu của anh em không muốn nằm má của anh em sn sàng động viên và tương trợ cho anh lúc này lúc khác nhưng đâu thả lúc nào cũng vậy được em cần một người đồng hành một người bạn đời độc lập và vững chạy nói thật là đôi khi tại vì chúng ta xem quá nhiều các cái phim xoắn xuống lãng mạn ngôn tình đó các bạn để rồi nghĩ là chỉ có tình yêu mới phải làm cho các bạn trở nên trọn vẹn cái kiểu như là mai nó sĩ hoành hạ lá dưới bằng hố tôi không trọn vẹn và tôi cần có em thì tôi mới đã thành một phiên bản trọn vẹn được ai dụ vậy hành ra mấy thiền sư mới thầy cô đều được những tâm hồn miếu mó không trọn vẹn tất cả ra mọi chúng ta bước vào cuộc đời này là một cá thể trọn vẹn chúng ta phải tự trâu dồi để trưởng thành thăng hoàng bạn phúc và rồi chúng ta tìm một người đồng điệu với mình để đi cùng mình trong chẳng hành trình đời sống để niềm hạnh phúc của chúng ta ngay qua đây lại rồi tham quan cho nên từ cái sự việc của bạn trẻ đau khổ này có khi tôi và các bạn đã nhìn ra là hay chúng ta phải nỗ lực làm tròn trách nhiệm nuôi dưỡng độc lập và hạnh phúc cho riêng bản thân mình trước và rồi mang các bản thể hạnh phúc của chính mình đã tặng cho người bạn đời cùng thăng hóa với nhau đó mới là nhiều cái năm bảy trời ơi con chạy những sai như thế sao sẽ",
+  "segments": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 13.16,
+      "text": "em muốn làm người yêu của anh em không muốn làm mẹ của anh chuyện là em vừa mới chia tay người yêu và người đó từng là điểm tựa là người để em phấn đấu bây giờ cô ấy đột ngột bỏ em mà đi",
+      "overlaps_previous": false,
+      "dbfs": -20.71,
+      "score": -2.022522211074829,
+      "skipped_as_silence": false
+    },
+    {
+      "index": 1,
+      "start": 13.16,
+      "end": 27.773,
+      "text": "em cảm thấy mất phương hướng và lạc lỏng anh có cách nào để em tìm lại sự bình an tìm lại chính em tiếng nói trong con người em không anh anh có thể em là người trong cuộc em đang yêu",
+      "overlaps_previous": false,
+      "dbfs": -23.04,
+      "score": -2.171191930770874,
+      "skipped_as_silence": false
+    },
+    {
+      "index": 2,
+      "start": 27.773,
+      "end": 42.521,
+      "text": "cho nên em không nhìn thấy rõ đó như em nghe cái ý này nè người đó từng là điểm tưởng là người là người là em sống đó thì đó chính là lý do tại sao người ta bỏ em mà đi đâu cô",
+      "overlaps_previous": false,
+      "dbfs": -26.9,
+      "score": -3.4039387702941895,
+      "skipped_as_silence": false
+    },
+    {
+      "index": 3,
+      "start": 42.521,
+      "end": 55.741,
+      "text": "tại vì em bước một mối quan hệ này không phải để chia sẻ để hiểu và đồng hành của cô ấy em bước một mối quan hệ này để tìm điểm tựa mà để dựa dẫm cô ấy mà",
+      "overlaps_previous": false,
+      "dbfs": -27.9,
+      "score": -3.2932093143463135,
+      "skipped_as_silence": false
+    },
+    {
+      "index": 4,
+      "start": 55.741,
+      "end": 69.919,
+      "text": "xin lỗi em nhưng anh không biết là em bao nhiêu tuổi chứ còn thật ra là trên hai chục tuổi thì ngay cả ba má mình thì mình cũng không nên dịu dẫm nữa các bạn à chứ đừng nói chi là bạn gái",
+      "overlaps_previous": false,
+      "dbfs": -27.87,
+      "score": -1.5363460779190063,
+      "skipped_as_silence": false
+    },
+    {
+      "index": 5,
+      "start": 69.919,
+      "end": 84.203,
+      "text": "của mình cho nên có khi cô ấy đang nói là em rất tiếc em muốn làm người yêu của anh em không muốn nằm má của anh em sn sàng động viên và tương trợ cho anh lúc này lúc khác nhưng đâu thả lúc nào cũng vậy được",
+      "overlaps_previous": false,
+      "dbfs": -24.47,
+      "score": -2.1934070587158203,
+      "skipped_as_silence": false
+    },
+    {
+      "index": 6,
+      "start": 84.203,
+      "end": 98.697,
+      "text": "em cần một người đồng hành một người bạn đời độc lập và vững chạy nói thật là đôi khi tại vì chúng ta xem quá nhiều các cái phim xoắn xuống lãng mạn ngôn tình đó các bạn",
+      "overlaps_previous": false,
+      "dbfs": -27.66,
+      "score": -2.2579336166381836,
+      "skipped_as_silence": false
+    },
+    {
+      "index": 7,
+      "start": 98.697,
+      "end": 111.451,
+      "text": "để rồi nghĩ là chỉ có tình yêu mới phải làm cho các bạn trở nên trọn vẹn cái kiểu như là mai nó sĩ hoành hạ lá dưới bằng hố tôi không trọn vẹn và",
+      "overlaps_previous": false,
+      "dbfs": -26.77,
+      "score": -6.026998519897461,
+      "skipped_as_silence": false
+    },
+    {
+      "index": 8,
+      "start": 111.451,
+      "end": 125.63,
+      "text": "tôi cần có em thì tôi mới đã thành một phiên bản trọn vẹn được ai dụ vậy hành ra mấy thiền sư mới thầy cô đều được những tâm hồn miếu mó không trọn vẹn tất cả ra mọi chúng ta bước vào cuộc đời này",
+      "overlaps_previous": false,
+      "dbfs": -24.58,
+      "score": -3.81300687789917,
+      "skipped_as_silence": false
+    },
+    {
+      "index": 9,
+      "start": 125.63,
+      "end": 138.415,
+      "text": "là một cá thể trọn vẹn chúng ta phải tự trâu dồi để trưởng thành thăng hoàng bạn phúc và rồi chúng ta tìm một người đồng điệu với mình để đi cùng mình",
+      "overlaps_previous": false,
+      "dbfs": -24.27,
+      "score": -2.347501277923584,
+      "skipped_as_silence": false
+    },
+    {
+      "index": 10,
+      "start": 138.415,
+      "end": 153.388,
+      "text": "trong chẳng hành trình đời sống để niềm hạnh phúc của chúng ta ngay qua đây lại rồi tham quan cho nên từ cái sự việc của bạn trẻ đau khổ này có khi tôi và các bạn đã nhìn ra là hay",
+      "overlaps_previous": false,
+      "dbfs": -24.98,
+      "score": -3.3597309589385986,
+      "skipped_as_silence": false
+    },
+    {
+      "index": 11,
+      "start": 153.388,
+      "end": 167.432,
+      "text": "chúng ta phải nỗ lực làm tròn trách nhiệm nuôi dưỡng độc lập và hạnh phúc cho riêng bản thân mình trước và rồi mang các bản thể hạnh phúc của chính mình đã tặng cho người bạn đời cùng thăng hóa với nhau",
+      "overlaps_previous": false,
+      "dbfs": -24.41,
+      "score": -3.4540746212005615,
+      "skipped_as_silence": false
+    },
+    {
+      "index": 12,
+      "start": 167.432,
+      "end": 179.722,
+      "text": "đó mới là nhiều cái năm bảy trời ơi con chạy những sai như thế sao sẽ",
+      "overlaps_previous": false,
+      "dbfs": -33.98,
+      "score": -11.233935356140137,
+      "skipped_as_silence": false
+    }
+  ]
+}
