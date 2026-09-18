@@ -131,7 +131,6 @@ def train_ASR2026(model: ASR2026, train_loader, val_loader,
                 output = model(mel_spectrogram_dbs, transcripts_target_preshift, mel_mask, transcripts_mask)
                 loss = criterion(output.reshape(-1, output.shape[-1]), transcripts_target_shifted.reshape(-1))
             
-            # Phòng vệ loss training
             if not torch.isfinite(loss):
                 print(f"\n{'='*40}")
                 print(f"CẢNH BÁO KHẨN CẤP: Loss bị hỏng ({loss.item()}) tại step {idx} - epoch: {epoch}")

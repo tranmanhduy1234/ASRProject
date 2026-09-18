@@ -28,7 +28,7 @@ conda env create -f environment.yml
 conda activate asrproject_linux
 ```
 
-Chỉnh sửa `config.py` để cấu hình đường dẫn dữ liệu, checkpoint và tokenizer trước khi chạy.
+Chỉnh sửa `config_model.py` để cấu hình đường dẫn dữ liệu, checkpoint và tokenizer trước khi chạy.
 
 ---
 
