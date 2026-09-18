@@ -16,3 +16,5 @@ source/tokenizer/tokenization.txt
 *.txt
 
 demo.wav
+/.codex
+/.idea
