@@ -63,7 +63,7 @@ Conv1d subsampling 4× + positional encoding
 
 | Thành phần | Vai trò thực tế |
 |---|---|
-| `config.py` | Hyperparameter, token ID, cấu hình audio, đường dẫn dữ liệu/checkpoint |
+| `config_model.py` | Hyperparameter, token ID, cấu hình audio, đường dẫn dữ liệu/checkpoint |
 | `Data/` | Tải, hợp nhất, lọc, ghép và nạp dữ liệu; tạo log-Mel spectrogram |
 | `Tokenizer/` | Chuẩn hóa corpus, huấn luyện và sử dụng SentencePiece Unigram |
 | `Model/architecture/` | Cấu hình kích thước Transformer chính |
@@ -127,7 +127,7 @@ Cấu hình phổ hiện tại:
 | Mel channels | 80 | Kích thước đặc trưng tại mỗi frame |
 | `top_db` | 100 dB | Chặn dynamic range khi đổi sang dB |
 
-Lưu ý: comment trong `config.py` ghi `N_FFT=400` là khoảng 250 ms, nhưng giá trị đúng ở 16 kHz là **25 ms**.
+Lưu ý: comment trong `config_model.py` ghi `N_FFT=400` là khoảng 250 ms, nhưng giá trị đúng ở 16 kHz là **25 ms**.
 
 ### 4.4 Tại sao tầng dữ liệu khó
 
@@ -363,7 +363,7 @@ Training hàng nghìn giờ dữ liệu có chi phí lớn nên checkpoint phả
 
 ### 11.2 Hạn chế và rủi ro hiện tại
 
-1. **Portability thấp.** Nhiều đường dẫn Windows được hard-code trong `config.py` và script dữ liệu; `get_data_audio_path()` mặc định tạo đường dẫn Windows. Demo inference đã được chỉnh cục bộ sang Linux nhưng cấu hình huấn luyện chưa đồng nhất.
+1. **Portability thấp.** Nhiều đường dẫn Windows được hard-code trong `config_model.py` và script dữ liệu; `get_data_audio_path()` mặc định tạo đường dẫn Windows. Demo inference đã được chỉnh cục bộ sang Linux nhưng cấu hình huấn luyện chưa đồng nhất.
 2. **Luồng train/resume bị chặn bởi evaluation.** Trong `Trainer2026.__init__`, nếu checkpoint model nạp và chạy WER thành công, code gọi `exit(0)` trước khi tạo optimizer và resume training.
 3. **WER bị thiên lệch.** Hàm `WER_f` bỏ qua sample có WER lớn hơn 1 rồi lấy trung bình WER từng câu. Cách này đánh giá lạc quan hơn dữ liệu thật và không phải corpus-level WER chuẩn.
 4. **KV cache sai positional index tiềm ẩn.** Khi cache bật, beam search chỉ đưa token cuối vào `Embedding_Decode`; lớp này luôn tạo position bắt đầu từ 0. Do đó token ở các bước sau có thể đều nhận learned positional embedding vị trí 0.

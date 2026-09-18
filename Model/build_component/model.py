@@ -32,7 +32,7 @@ class ASR2026(nn.Module):
         self.output_projection.weight = self.embedding_decode.token_embed.weight
         self.src_kpmask_inference = None
         
-    # src: torch.Size([4, 80, 1571]), src_kpmask: torch.Size([4, 1571])
+    # src_src: torch.Size([4, 80, 1571]), src_kpmask: torch.Size([4, 1571])
     def forward(self, src, tgt, src_kpmask = None, tgt_kpmask=None):
         assert src.shape[1] == config.CHANNEL_LOG_MEL, "Cấu hình đầu vào không đúng"
         preEncoded = self.preEncode(src) # preEncoded: [batch_size, seqlen, d_model]
